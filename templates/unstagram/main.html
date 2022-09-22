@@ -30,6 +30,7 @@
     </style>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; width: 100%">
     <div class="container-fluid" style="display: flex; flex-direction: row; flex-wrap: nowrap">
         <a class="navbar-brand" href="#"><img style="width: 150px"
@@ -50,20 +51,21 @@
 
 <div style="display: flex; flex-direction: row; text-align: center; justify-content: center; padding-top: 75px">
     <div style="width: 500px; min-width: 500px; height: 1000px; margin-right: 300px">
+        {% for feed in feed_list %}
         <div style="border: solid 1px grey; background: white; margin-bottom: 30px">
             <div style="display: flex; flex-direction: row; align-items: center; margin:0 20px">
                 <div class="box" style="background: #BDBDBD; width: 55px; height: 55px">
                     <img class="profile"
-                         src="https://blog.kakaocdn.net/dn/d648yD/btqIM8aqtgq/fp6wNdMO4ESRAULFj8anlK/img.png">
+                         src="{{ feed.profile_image }}">
                 </div>
                 <div style="margin-left: 10px; font-weight: bold">
-                    jinhnng
+                    {{ feed.user_id }}
                 </div>
             </div>
 
             <div>
                 <img style="width: 100%"
-                     src="https://youimg1.tripcdn.com/target/100a0e0000006zype378A_C_640_320_R5_Q70.jpg_.webp?proc=source%2Ftrip ">
+                     src="{{ feed.image }} ">
             </div>
             <div style="margin:0 20px; display: flex; flex-direction: row; justify-content: space-between">
                 <div>
@@ -76,9 +78,9 @@
                 </div>
             </div>
             <div style="margin:0 20px; text-align: left; font-size: 14px">
-                춘식이 <b>외 19명</b>이 좋아합니다.
+                춘식이 <b>외 {{ feed.like_count }}명</b>이 좋아합니다.
             </div>
-            <div style="margin:0 20px; text-align: left; font-size: 16px"><b>jinhnng</b>요즘 해외를 못가서 아쉽.</div>
+            <div style="margin:0 20px; text-align: left; font-size: 16px"><b>{{ feed.user_id }}</b>{{ feed.content }}</div>
             <div style="margin:0 20px; text-align: left; font-size: 14px">
                 <b>aaa</b> 나도 제주도!!!
             </div>
@@ -89,84 +91,7 @@
                 <input type="text" class="form-control" style="box-shadow: none" placeholder="댓글을 입력하세요">
             </div>
         </div>
-        <div style="border: solid 1px grey; background: white; margin-bottom: 30px">
-            <div style="display: flex; flex-direction: row; align-items: center; margin:0 20px">
-                <div class="box" style="background: #BDBDBD; width: 55px; height: 55px">
-                    <img class="profile"
-                         src="https://blog.kakaocdn.net/dn/d648yD/btqIM8aqtgq/fp6wNdMO4ESRAULFj8anlK/img.png">
-                </div>
-                <div style="margin-left: 10px; font-weight: bold">
-                    jinhnng
-                </div>
-            </div>
-
-            <div>
-                <img style="width: 100%"
-                     src="https://youimg1.tripcdn.com/target/100a0e0000006zype378A_C_640_320_R5_Q70.jpg_.webp?proc=source%2Ftrip ">
-            </div>
-            <div style="margin:0 20px; display: flex; flex-direction: row; justify-content: space-between">
-                <div>
-                    <span class="material-symbols-outlined">favorite</span>
-                    <span class="material-symbols-outlined">mode_comment</span>
-                    <span class="material-symbols-outlined">send</span>
-                </div>
-                <div>
-                    <span class="material-symbols-outlined">bookmark</span>
-                </div>
-            </div>
-            <div style="margin:0 20px; text-align: left; font-size: 14px">
-                춘식이 <b>외 19명</b>이 좋아합니다.
-            </div>
-            <div style="margin:0 20px; text-align: left; font-size: 16px"><b>jinhnng</b>요즘 해외를 못가서 아쉽.</div>
-            <div style="margin:0 20px; text-align: left; font-size: 14px">
-                <b>aaa</b> 나도 제주도!!!
-            </div>
-            <div style="margin:0 20px; text-align: left; font-size: 14px">
-                <b>bbb</b>나는 ?????
-            </div>
-            <div>
-                <input type="text" class="form-control" style="box-shadow: none" placeholder="댓글을 입력하세요">
-            </div>
-        </div>
-        <div style="border: solid 1px grey; background: white; margin-bottom: 30px">
-            <div style="display: flex; flex-direction: row; align-items: center; margin:0 20px">
-                <div class="box" style="background: #BDBDBD; width: 55px; height: 55px">
-                    <img class="profile"
-                         src="https://blog.kakaocdn.net/dn/d648yD/btqIM8aqtgq/fp6wNdMO4ESRAULFj8anlK/img.png">
-                </div>
-                <div style="margin-left: 10px; font-weight: bold">
-                    jinhnng
-                </div>
-            </div>
-
-            <div>
-                <img style="width: 100%"
-                     src="https://youimg1.tripcdn.com/target/100a0e0000006zype378A_C_640_320_R5_Q70.jpg_.webp?proc=source%2Ftrip ">
-            </div>
-            <div style="margin:0 20px; display: flex; flex-direction: row; justify-content: space-between">
-                <div>
-                    <span class="material-symbols-outlined">favorite</span>
-                    <span class="material-symbols-outlined">mode_comment</span>
-                    <span class="material-symbols-outlined">send</span>
-                </div>
-                <div>
-                    <span class="material-symbols-outlined">bookmark</span>
-                </div>
-            </div>
-            <div style="margin:0 20px; text-align: left; font-size: 14px">
-                춘식이 <b>외 19명</b>이 좋아합니다.
-            </div>
-            <div style="margin:0 20px; text-align: left; font-size: 16px"><b>jinhnng</b>요즘 해외를 못가서 아쉽.</div>
-            <div style="margin:0 20px; text-align: left; font-size: 14px">
-                <b>aaa</b> 나도 제주도!!!
-            </div>
-            <div style="margin:0 20px; text-align: left; font-size: 14px">
-                <b>bbb</b>나는 ?????
-            </div>
-            <div>
-                <input type="text" class="form-control" style="box-shadow: none" placeholder="댓글을 입력하세요">
-            </div>
-        </div>
+        {% endfor %}
 
 
     </div>
