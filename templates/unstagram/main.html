@@ -12,6 +12,12 @@
     <!-- Google Icon -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 
+
+    <!-- jQuery -->
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
     <title>Hello, world!</title>
 
     <style>
@@ -27,6 +33,34 @@
             height: 100%;
             object-fit: cover;
         }
+
+        .modal_overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+        }
+
+        .modal_window {
+            background: white;
+            backdrop-filter: blur(13.5px);
+            -webkit-backdrop-filter: blur(13.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 800px;
+            height: 600px;
+            position: relative;
+            padding: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -40,7 +74,7 @@
         <div style="display: flex; flex-direction: row">
             <span class="material-symbols-outlined">home</span>
             <span class="material-symbols-outlined">send</span>
-            <span class="material-symbols-outlined">add_box</span>
+            <span id="nav_bar_add_box" class="material-symbols-outlined">add_box</span>
             <span class="material-symbols-outlined">explore</span>
             <span class="material-symbols-outlined">favorite</span>
         </div>
@@ -52,45 +86,46 @@
 <div style="display: flex; flex-direction: row; text-align: center; justify-content: center; padding-top: 75px">
     <div style="width: 500px; min-width: 500px; height: 1000px; margin-right: 300px">
         {% for feed in feed_list %}
-        <div style="border: solid 1px grey; background: white; margin-bottom: 30px">
-            <div style="display: flex; flex-direction: row; align-items: center; margin:0 20px">
-                <div class="box" style="background: #BDBDBD; width: 55px; height: 55px">
-                    <img class="profile"
-                         src="{{ feed.profile_image }}">
+            <div style="border: solid 1px grey; background: white; margin-bottom: 30px">
+                <div style="display: flex; flex-direction: row; align-items: center; margin:0 20px">
+                    <div class="box" style="background: #BDBDBD; width: 55px; height: 55px">
+                        <img class="profile"
+                             src="{{ feed.profile_image }}">
+                    </div>
+                    <div style="margin-left: 10px; font-weight: bold">
+                        {{ feed.user_id }}
+                    </div>
                 </div>
-                <div style="margin-left: 10px; font-weight: bold">
-                    {{ feed.user_id }}
-                </div>
-            </div>
 
-            <div>
-                <img style="width: 100%"
-                     src="{{ feed.image }} ">
-            </div>
-            <div style="margin:0 20px; display: flex; flex-direction: row; justify-content: space-between">
                 <div>
-                    <span class="material-symbols-outlined">favorite</span>
-                    <span class="material-symbols-outlined">mode_comment</span>
-                    <span class="material-symbols-outlined">send</span>
+                    <img style="width: 100%"
+                         src="{{ feed.image }} ">
+                </div>
+                <div style="margin:0 20px; display: flex; flex-direction: row; justify-content: space-between">
+                    <div>
+                        <span class="material-symbols-outlined">favorite</span>
+                        <span class="material-symbols-outlined">mode_comment</span>
+                        <span class="material-symbols-outlined">send</span>
+                    </div>
+                    <div>
+                        <span class="material-symbols-outlined">bookmark</span>
+                    </div>
+                </div>
+                <div style="margin:0 20px; text-align: left; font-size: 14px">
+                    춘식이 <b>외 {{ feed.like_count }}명</b>이 좋아합니다.
+                </div>
+                <div style="margin:0 20px; text-align: left; font-size: 16px">
+                    <b>{{ feed.user_id }}</b>{{ feed.content }}</div>
+                <div style="margin:0 20px; text-align: left; font-size: 14px">
+                    <b>aaa</b> 나도 제주도!!!
+                </div>
+                <div style="margin:0 20px; text-align: left; font-size: 14px">
+                    <b>bbb</b>나는 ?????
                 </div>
                 <div>
-                    <span class="material-symbols-outlined">bookmark</span>
+                    <input type="text" class="form-control" style="box-shadow: none" placeholder="댓글을 입력하세요">
                 </div>
             </div>
-            <div style="margin:0 20px; text-align: left; font-size: 14px">
-                춘식이 <b>외 {{ feed.like_count }}명</b>이 좋아합니다.
-            </div>
-            <div style="margin:0 20px; text-align: left; font-size: 16px"><b>{{ feed.user_id }}</b>{{ feed.content }}</div>
-            <div style="margin:0 20px; text-align: left; font-size: 14px">
-                <b>aaa</b> 나도 제주도!!!
-            </div>
-            <div style="margin:0 20px; text-align: left; font-size: 14px">
-                <b>bbb</b>나는 ?????
-            </div>
-            <div>
-                <input type="text" class="form-control" style="box-shadow: none" placeholder="댓글을 입력하세요">
-            </div>
-        </div>
         {% endfor %}
 
 
@@ -187,12 +222,140 @@
         </div>
 
         <div style="margin-top: 50px; font-size: 12px; color: gray;text-align: left">소개 도움말 홍보센터 API</br>
-        개인정보처리방침 약관 위치 인기계정 해시태그 언어</div>
+            개인정보처리방침 약관 위치 인기계정 해시태그 언어
+        </div>
         <div style="margin-top: 20px; font-size: 12px; color: gray;text-align: left">2022 INSTAGRAM FROM FACEBOOK</div>
     </div>
 </div>
-<!-- Optional JavaScript; choose one of the two! -->
 
+<!-- 첫번째 모달 -->
+<div id="first_modal" class="modal_overlay">
+    <div class="modal_window">
+        <div style="display: flex; flex-direction: row; justify-content: space-between">
+            <div style="width: 40px">
+
+            </div>
+
+            <div>
+                새이미지 업로드
+            </div>
+
+            <div>
+                <span class="material-symbols-outlined">
+                    close
+                </span>
+            </div>
+        </div>
+        <div class="img_upload_space" style="border-top: solid 1px gray;  width: 778px; height: 540px; margin-top: 10px"></div>
+
+    </div>
+</div>
+
+<!-- 두번쨰 모달 -->
+<div id="second_modal" class="modal_overlay">
+    <div class="modal_window">
+        <div style="border-bottom: solid 1px gray; display: flex; flex-direction: row; justify-content: space-between">
+            <div style="width: 40px">
+
+            </div>
+
+            <div>
+                새이미지 업로드
+            </div>
+
+            <div>
+                <span class="material-symbols-outlined">
+                    close
+                </span>
+            </div>
+        </div>
+        <div style= "display: flex; flex-direction: row;">
+            <div class="img_upload_space" style="margin-right: 10px; width: 500px; height: 540px; margin-top: 10px">
+
+            </div>
+            <div style="border-left: solid 1px gray">
+
+                <div>
+                    <textarea class="form-control" style="width:276px; height: 400px"id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button type="button" class="btn btn-primary" style="width:100%">
+                    공유하기
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- Optional JavaScript; choose one of the two! -->
+<script>
+
+    $('#nav_bar_add_box').click(function () {
+        $('#first_modal').css({
+            display: 'flex'
+        });
+        $(document.body).css({
+            overflow: 'hidden'
+        });
+    });
+
+    $('.img_upload_space')
+        .on("dragover", dragOver)
+        .on("dragleave", dragOver)
+        .on("drop", uploadFiles);
+
+    function dragOver(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log(e);
+        if (e.type == "dragover") {
+            $(e.target).css({
+                "background-color": "black",
+                "outline-offset": "-20px"
+            });
+        } else {
+            $(e.target).css({
+                "outline-offset": "-10px"
+            });
+        }
+    }
+
+    function uploadFiles(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        dragOver(e); //1
+
+        e.dataTransfer = e.originalEvent.dataTransfer; //2
+        var files = e.target.files || e.dataTransfer.files;
+        console.log("파일" + files[0].name)
+        if (files.length > 1) {
+            alert('하나만 올려라.');
+            return;
+        }
+
+        if (files[0].type.match(/image.*/)) {
+            $('#first_modal').css({
+                display:'none'
+            });
+            $('#second_modal').css({
+                display:'flex'
+            });
+
+            $('.img_upload_space').css({
+                "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
+                "outline": "none",
+                "background-size": "95%",
+                "background-repeat": "no-repeat",
+                "background-position": "center"
+            });
+        } else {
+            alert('이미지가 아닙니다.');
+            return;
+        }
+
+    }
+
+</script>
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -204,4 +367,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 -->
 </body>
+
 </html>
