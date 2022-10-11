@@ -276,9 +276,9 @@
             <div style="border-left: solid 1px gray">
 
                 <div>
-                    <textarea class="form-control" style="width:276px; height: 400px"id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea id = "input_feed_content" class="form-control" style="width:276px; height: 400px"id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
-                <button type="button" class="btn btn-primary" style="width:100%">
+                <button id ="feed_create_button" type="button" class="btn btn-primary" style="width:100%">
                     공유하기
                 </button>
             </div>
@@ -290,6 +290,9 @@
 <!-- Optional JavaScript; choose one of the two! -->
 <script>
 
+    let files;
+
+
     $('#nav_bar_add_box').click(function () {
         $('#first_modal').css({
             display: 'flex'
@@ -297,6 +300,40 @@
         $(document.body).css({
             overflow: 'hidden'
         });
+    });
+
+    $('#feed_create_button').click(function (){
+        alert("공유하기 눌렀다");
+
+        let file = files[0];
+        let image = files[0].name;
+        let content=$('#input_feed_content').val();
+        let user_id= "jinhnng";
+        let profile_image= "https://www.pngitem.com/pimgs/m/32-323881_logo-new-vector-eps-instagram-word-logo-png.png";
+
+        let fd = new FormData();
+        fd.append('file',file);
+        fd.append('image',image);
+        fd.append('content', content);
+        fd.append('user_id',user_id);
+        fd.append('profile_image', profile_image);
+
+        $.ajax({
+            url:"/content/upload",
+            data: fd,
+            method: "POST",
+            processData: false,
+            contentType: false,
+            success: function(data){
+                console.log("성공");
+            },
+            error: function (request, status, error){
+                console.log("에러");
+            },
+            complete: function (){
+                console.log("완료");
+            }
+        })
     });
 
     $('.img_upload_space')
@@ -326,7 +363,7 @@
         dragOver(e); //1
 
         e.dataTransfer = e.originalEvent.dataTransfer; //2
-        var files = e.target.files || e.dataTransfer.files;
+        files = e.target.files || e.dataTransfer.files;
         console.log("파일" + files[0].name)
         if (files.length > 1) {
             alert('하나만 올려라.');
