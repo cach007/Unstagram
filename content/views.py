@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from Unstagram.settings import MEDIA_ROOT
+from user.models import User
 from .models import Feed
 
 
@@ -14,9 +15,18 @@ class Main(APIView):
     def get(self, request):
         print("called get")
         feed_list = Feed.objects.all().order_by('-id')
-        for feed in feed_list:
-            print(feed.content)
-        return render(request, "unstagram/main.html", context=dict(feed_list=feed_list))
+
+        email = request.session.get('email', None)
+
+        if email is None:
+            return render(request, "user/login.html")
+
+        user = User.objects.filter(email=email).first()
+
+        if user is None:
+            return render(request, "user/login.html")
+
+        return render(request, "unstagram/main.html", context=dict(feed_list=feed_list, user=user))
 
 
 class UploadFeed(APIView):
