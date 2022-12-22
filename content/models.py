@@ -6,7 +6,6 @@ class Feed(models.Model):
     content = models.TextField()  # 글내용
     image = models.TextField()  # 피드 이미지
     email = models.EmailField(default='')  # 글쓴이
-    like_count = models.IntegerField()  # 좋아요 수
 
 
 class Like(models.Model):
@@ -24,4 +23,4 @@ class Reply(models.Model):
 class Bookmark(models.Model):
     feed_id = models.IntegerField(default=0)
     email = models.EmailField(default='')
-    is_bookmark = models.BooleanField(default=True)
+    is_marked = models.BooleanField(default=True)
