@@ -31,8 +31,9 @@ class Main(APIView):
             reply_object_list = Reply.objects.filter(feed_id=feed.id)
             reply_list = []
             for reply in reply_object_list:
+                temp = User.objects.filter(email=reply.email).first()
                 reply_list.append(dict(reply_content=reply.reply_content,
-                                       nickname=user.nickname))
+                                       nickname=temp))
 
             like_count = Like.objects.filter(feed_id=feed.id, is_like=True).count()
 
