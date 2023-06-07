@@ -19,9 +19,9 @@ class Main(APIView):
         if email is None:
             return render(request, "user/login.html")
 
-        user = User.objects.filter(email=email).first()
+        user_now = User.objects.filter(email=email).first()
 
-        if user is None:
+        if user_now is None:
             return render(request, "user/login.html")
 
         feed_object_list = Feed.objects.all().order_by('-id')
@@ -51,7 +51,7 @@ class Main(APIView):
                                   is_marked=is_marked
                                   ))
 
-        return render(request, "unstagram/main.html", context=dict(feed_list=feed_list, user=user))
+        return render(request, "unstagram/main.html", context=dict(feed_list=feed_list, user=user_now))
 
 
 class UploadFeed(APIView):
@@ -83,6 +83,7 @@ class Profile(APIView):
             return render(request, "user/login.html")
 
         user = User.objects.filter(email=email).first()
+        print('user',user)
 
         if user is None:
             return render(request, "user/login.html")
