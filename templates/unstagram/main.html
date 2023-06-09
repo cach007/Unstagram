@@ -69,7 +69,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; width: 100%; z-index: 999">
     <div class="container-fluid" style="display: flex; flex-direction: row; flex-wrap: nowrap">
         <a class="navbar-brand" href=""><img style="width: 150px"
-                                             src="https://www.pngitem.com/pimgs/m/32-323881_logo-new-vector-eps-instagram-word-logo-png.png"></a>
+                                             src="https://logos-download.com/wp-content/uploads/2016/03/Instagram_Logo_2016.png"></a>
 
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <div style="display: flex; flex-direction: row; padding-right: 10px">
@@ -129,7 +129,9 @@
                     </div>
                 </div>
                 <div style="margin:0 20px; text-align: left; font-size: 14px">
-                    춘식이 <b>외 {{ feed.like_count }}명</b>이 좋아합니다.
+                    {% if feed.is_liked %}
+                        {{ feed.like_count }}명</b>이 좋아합니다.
+                    {% endif %}
                 </div>
                 <div style="margin:0 20px; text-align: left; font-size: 16px">
 
