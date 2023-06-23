@@ -15,6 +15,7 @@ class Main(APIView):
     def get(self, request):
         print("called get")
         email = request.session.get('email', None)
+        print(email)
 
         if email is None:
             return render(request, "user/login.html")
@@ -37,7 +38,7 @@ class Main(APIView):
 
             like_count = Like.objects.filter(feed_id=feed.id, is_like=True).count()
 
-            is_liked = Like.objects.filter(feed_id=feed.id, email=email).exists()
+            is_liked = Like.objects.filter(feed_id=feed.id, email=email, is_like=True).exists()
 
             is_marked = Bookmark.objects.filter(feed_id=feed.id, email=email, is_marked=True).exists()
 
